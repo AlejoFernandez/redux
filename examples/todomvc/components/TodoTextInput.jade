@@ -1,0 +1,10 @@
+input(
+  class=classnames({edit: props.editing, 'new-todo': props.newTodo}),
+  type="text",
+  placeholder=props.placeholder,
+  autoFocus="true",
+  value=state.text,
+  onBlur=handleBlur,
+  onChange=handleChange,
+  onKeyDown=handleSubmit
+)

@@ -1,0 +1,21 @@
+footer.footer
+  span.todo-count
+    strong=activeCount
+    if activeCount == 1
+      |  item left
+    else
+      |  items left
+      
+  
+  ul.filters
+    each filter in [SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED]
+      li(key=filter)
+        a(
+          class=classnames({selected: filter === selectedFilter}),
+          style={cursor: 'pointer'},
+          onClick=onShow(filter)
+        )
+          =FILTER_TITLES[filter]
+        
+  if completedCount > 0
+    button.clear-completed(onClick=onClearCompleted) Clear completed

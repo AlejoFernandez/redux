@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import classnames from 'classnames'
-import TodoTextInput from './TodoTextInput'
+import classnames                      from 'classnames'
+import TodoTextInput                   from './TodoTextInput'
+import template                        from './TodoItem.jade'
 
 class TodoItem extends Component {
   constructor(props, context) {
@@ -24,39 +25,18 @@ class TodoItem extends Component {
   }
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props
+    const { todo, completeTodo, deleteTodo } = this.props;
 
-    let element
-    if (this.state.editing) {
-      element = (
-        <TodoTextInput text={todo.text}
-                       editing={this.state.editing}
-                       onSave={(text) => this.handleSave(todo.id, text)} />
-      )
-    } else {
-      element = (
-        <div className="view">
-          <input className="toggle"
-                 type="checkbox"
-                 checked={todo.completed}
-                 onChange={() => completeTodo(todo.id)} />
-          <label onDoubleClick={this.handleDoubleClick.bind(this)}>
-            {todo.text}
-          </label>
-          <button className="destroy"
-                  onClick={() => deleteTodo(todo.id)} />
-        </div>
-      )
-    }
-
-    return (
-      <li className={classnames({
-        completed: todo.completed,
-        editing: this.state.editing
-      })}>
-        {element}
-      </li>
-    )
+    return template({
+      TodoTextInput:     TodoTextInput,
+      classnames:        classnames,
+      completeTodo:      () => completeTodo(todo.id),
+      deleteTodo:        () => deleteTodo(todo.id),
+      handleSave:        (text) => this.handleSave.bind(this)(todo.id, text),
+      handleDoubleClick: this.handleDoubleClick.bind(this),
+      state:             this.state,
+      todo:              todo
+    })
   }
 }
 

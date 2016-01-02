@@ -27,6 +27,9 @@ module.exports = {
       test: /\.css?$/,
       loaders: [ 'style', 'raw' ],
       include: __dirname
+    }, {
+      test: /\.jade$/,
+      loader: 'jade-react-loader'
     }]
   }
 }

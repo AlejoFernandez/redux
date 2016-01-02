@@ -1,0 +1,26 @@
+section.main
+  if todos.length
+    input.toggle-all(
+      type="checkbox",
+      checked=completedCount == todos.length,
+      onChange=actions.completeAll
+    )
+  
+  ul.todo-list
+    each todo in filteredTodos
+      TodoItem(
+        key=todo.id,
+        todo=todo,
+        deleteTodo=actions.deleteTodo,
+        editTodo=actions.editTodo,
+        completeTodo=actions.completeTodo
+      )
+
+  if todos.length
+    Footer(
+      completedCount=completedCount,
+      activeCount=activeCount,
+      filter=filter,
+      onClearCompleted=handleClearCompleted,
+      onShow=handleShow
+    )

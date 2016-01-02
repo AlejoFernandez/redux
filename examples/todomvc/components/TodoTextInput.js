@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import classnames from 'classnames'
+import classnames                      from 'classnames'
+import template                        from './TodoTextInput.jade'
 
 class TodoTextInput extends Component {
   constructor(props, context) {
@@ -30,20 +31,14 @@ class TodoTextInput extends Component {
   }
 
   render() {
-    return (
-      <input className={
-        classnames({
-          edit: this.props.editing,
-          'new-todo': this.props.newTodo
-        })}
-        type="text"
-        placeholder={this.props.placeholder}
-        autoFocus="true"
-        value={this.state.text}
-        onBlur={this.handleBlur.bind(this)}
-        onChange={this.handleChange.bind(this)}
-        onKeyDown={this.handleSubmit.bind(this)} />
-    )
+    return template({
+      classnames:   classnames,
+      handleBlur:   this.handleBlur.bind(this),
+      handleChange: this.handleChange.bind(this),
+      handleSubmit: this.handleSubmit.bind(this),
+      props:        this.props,
+      state:        this.state
+    });
   }
 }
 
